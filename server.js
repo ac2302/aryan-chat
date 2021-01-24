@@ -144,6 +144,8 @@ io.on("connection", (socket) => {
 	socket.on("greeting", (details) => {
 		socket.join(details.hall);
 		// socket has joined hall
-		
+		socket.on("messageSend", (message) => {
+			io.to(details.hall).emit("messageRecieve", message);
+		});
 	});
 });
