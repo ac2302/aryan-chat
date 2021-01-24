@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+#info {
+	display: none;
+}
+
 table {
 	border-collapse: collapse;
 }
@@ -36,9 +40,9 @@ td {
 
 #copy-invite-link {
 	width: 20vw;
-    height: 30px;
-    font-size: 20px;
-    background-color: white;
+	height: 30px;
+	font-size: 20px;
+	background-color: white;
 }
 
 .member {

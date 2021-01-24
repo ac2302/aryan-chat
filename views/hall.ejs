@@ -15,12 +15,17 @@
 		<link rel="stylesheet" href="/css/hall.css" />
 	</head>
 	<body>
+		<!-- info from server to client js -->
+		<div id="info">
+			<span id="username"><%= user.username %></span>
+		</div>
+
 		<nav>
 			<a href="/home" id="home-link">
 				<i class="fas fa-fighter-jet"></i>
 				<span id="brand">Aryan Chat</span>
 			</a>
-			<span id="hall-name"> <%= hall.name %> </span>
+			<span id="hall-name"><%= hall.name %></span>
 		</nav>
 		<table>
 			<tr>
@@ -51,5 +56,10 @@
 				<input type="submit" value="send" />
 			</form>
 		</div>
+
+		<!-- socket -->
+		<script src="/socket.io/socket.io.js"></script>
+		<!-- javascript -->
+		<script src="/js/hall.js"></script>
 	</body>
 </html>

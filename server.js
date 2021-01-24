@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const ejs = require("ejs");
 const passportLocalMongoose = require("passport-local-mongoose");
+const socketio = require("socket.io");
 
 const http = require("http");
 const bodyParser = require("body-parser");
@@ -14,6 +15,7 @@ const { use } = require("passport");
 // defining app, server and socket
 const app = express();
 const server = http.createServer(app);
+const io = socketio(server);
 
 // middleware stuff
 app.use(express.static("public"));
@@ -82,8 +84,8 @@ app.get("/home", (req, res) => {
 app.get("/hall/:hall", (req, res) => {
 	if (req.isAuthenticated()) {
 		Hall.findOne({ name: req.params.hall }, (err, hall) => {
-			if ((!err) && hall !== null) {
-				res.render("hall", { hall });
+			if (!err && hall !== null) {
+				res.render("hall", { hall: hall, user: req.user });
 			} else {
 				res.redirect("/home");
 			}
@@ -138,3 +140,10 @@ app.get("/logout", (req, res) => {
 });
 
 // ================= socket stuff ======================
+io.on("connection", (socket) => {
+	socket.on("greeting", (details) => {
+		socket.join(details.hall);
+		// socket has joined hall
+		
+	});
+});
