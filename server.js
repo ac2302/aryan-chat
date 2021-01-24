@@ -50,11 +50,19 @@ mongoose.set("useCreateIndex", true);
 const userSchema = new mongoose.Schema({
 	email: String,
 	password: String,
+	halls: [],
 });
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// defining the non passport schemas and models
+const hallSchema = new mongoose.Schema({
+	name: String,
+	members: [],
+});
+const Hall = mongoose.model("Hall", hallSchema);
 
 // setting up server to listen
 const PORT = process.env.PORT;
@@ -64,7 +72,7 @@ server.listen(PORT, () => console.log(`server is live on port ${PORT}`));
 // serving the home page
 app.get("/home", (req, res) => {
 	if (req.isAuthenticated()) {
-		res.send(`welcome ${req.user.username}`);
+		res.render("home", { user: req.user });
 	} else {
 		res.redirect("/login");
 	}
