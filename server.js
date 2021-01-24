@@ -64,7 +64,7 @@ server.listen(PORT, () => console.log(`server is live on port ${PORT}`));
 // serving the home page
 app.get("/home", (req, res) => {
 	if (req.isAuthenticated()) {
-		res.send("user home");
+		res.send(`welcome ${req.user.username}`);
 	} else {
 		res.redirect("/login");
 	}
@@ -72,7 +72,6 @@ app.get("/home", (req, res) => {
 
 // register new user
 app.post("/register", (req, res) => {
-	console.log(`${req.body.username} ${req.body.password}`);
 	User.register(
 		{
 			username: req.body.username,
@@ -92,6 +91,27 @@ app.post("/register", (req, res) => {
 	);
 });
 // login old user
-app.post("/login", (req, res) => {});
+app.post("/login", (req, res) => {
+	const user = new User({
+		username: req.body.username,
+		password: req.body.password,
+	});
+
+	req.logIn(user, (err) => {
+		if (err) {
+			console.log();
+		} else {
+			passport.authenticate("local")(req, res, () => {
+				// eveything is succesfull
+				res.redirect("/home");
+			});
+		}
+	});
+});
+// logout
+app.get("/logout", (req, res) => {
+	req.logout();
+	res.redirect("/");
+});
 
 // ================= socket stuff ======================
