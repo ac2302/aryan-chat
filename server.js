@@ -95,6 +95,45 @@ app.get("/hall/:hall", (req, res) => {
 	}
 });
 
+// creating new hall
+app
+	.route("/create")
+	.get((req, res) => {
+		if (req.isAuthenticated()) {
+			res.render("create");
+		} else {
+			res.redirect("/login");
+		}
+	})
+	.post((req, res) => {
+		if (req.isAuthenticated()) {
+			Hall.findOne({ name: req.body.name }, (err, hall) => {
+				if (!err && hall === null) {
+					User.findById(req.user.id, (err, user) => {
+						if (!err) {
+							// creating the new hall
+							user.halls.push(req.body.name);
+							user.save();
+							createdHall = Hall({
+								name: req.body.name,
+								members: [req.user.username],
+							});
+							createdHall.save();
+							// redirecting to created hall
+							res.redirect(`/hall/${req.body.name}`);
+						} else {
+							res.redirect("/home");
+						}
+					});
+				} else {
+					res.redirect("/home");
+				}
+			});
+		} else {
+			res.redirect("/login");
+		}
+	});
+
 // register new user
 app.post("/register", (req, res) => {
 	User.register(
