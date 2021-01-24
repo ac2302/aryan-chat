@@ -20,7 +20,7 @@
 				<i class="fas fa-fighter-jet"></i>
 				<span id="brand">Aryan Chat</span>
 			</a>
-			<span id="hall-name">ROTS</span>
+			<span id="hall-name"> <%= hall.name %> </span>
 		</nav>
 		<table>
 			<tr>
@@ -28,63 +28,18 @@
 					<button id="copy-invite-link">copy invite link</button>
 					<div id="members-list-container">
 						<ul id="members-list">
-							<li class="member">Obi Wan</li>
-							<li class="member">General Grievous</li>
-							<li class="member">Droid 1</li>
-							<li class="member">Droid 2</li>
+							<% for( let i = 0; i < hall.members.length; i++ ) { %>
+							<li class="member"><%= hall.members[i] %></li>
+							<% } %>
 						</ul>
 					</div>
 				</td>
 				<td id="messages">
 					<div id="messages-scroll">
-						<div class="message">
+						<!-- <div class="message">
 							<div class="sender">Obi Wan</div>
 							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
-						<div class="message">
-							<div class="sender">Obi Wan</div>
-							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
-						<div class="message">
-							<div class="sender">Obi Wan</div>
-							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
-						<div class="message">
-							<div class="sender">Obi Wan</div>
-							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
-						<div class="message">
-							<div class="sender">Obi Wan</div>
-							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
-						<div class="message">
-							<div class="sender">Obi Wan</div>
-							<p>Hello There</p>
-						</div>
-						<div class="message">
-							<div class="sender">General Grievous</div>
-							<p>General Kenobi</p>
-						</div>
+						</div> -->
 					</div>
 				</td>
 			</tr>
