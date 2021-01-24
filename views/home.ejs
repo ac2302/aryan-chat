@@ -6,9 +6,24 @@
 		<title>Aryan Chat</title>
 	</head>
 	<body>
-        <h1>Welcome, <%= user.username %></h1>
+		<h1>Welcome, <%= user.username %></h1>
+
+		<!-- logout -->
+		<form action="/logout" method="get">
+			<input type="submit" value="logout" />
+        </form>
+        
+        <!-- create hall -->
+        <a href="/create">create hall</a>
 
         <!-- rendering halls -->
-        
-    </body>
+        <h3>halls</h3>
+		<ul>
+			<% for( let i = 0; i < user.halls.length; i++ ) { %>
+			<li>
+				<a href="/hall/<%= user.halls[i] %> "><%= user.halls[i] %> </a>
+			</li>
+			<% } %>
+		</ul>
+	</body>
 </html>

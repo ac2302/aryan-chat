@@ -78,6 +78,21 @@ app.get("/home", (req, res) => {
 	}
 });
 
+// serving the hall page
+app.get("/hall/:hall", (req, res) => {
+	if (req.isAuthenticated()) {
+		Hall.findOne({ name: req.params.hall }, (err, hall) => {
+			if ((!err) && hall !== null) {
+				res.render("hall", { hall });
+			} else {
+				res.redirect("/home");
+			}
+		});
+	} else {
+		res.redirect("/login");
+	}
+});
+
 // register new user
 app.post("/register", (req, res) => {
 	User.register(
