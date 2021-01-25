@@ -92,9 +92,10 @@ td {
 
 input[type="text"] {
 	width: 90vw;
+	margin-left: 10px;
 }
 input[type="submit"] {
-	width: 8vw;
+	width: 7vw;
 }
 input[type="text"],
 input[type="submit"] {
