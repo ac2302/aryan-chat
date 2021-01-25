@@ -7,6 +7,7 @@ const passport = require("passport");
 const ejs = require("ejs");
 const passportLocalMongoose = require("passport-local-mongoose");
 const socketio = require("socket.io");
+const moment = require("moment");
 
 const http = require("http");
 const bodyParser = require("body-parser");
@@ -225,6 +226,10 @@ io.on("connection", (socket) => {
 		sendMessages(socket, details.hall);
 
 		socket.on("messageSend", (message) => {
+			// adding timestamp to messages
+			const timestamp = moment().format("h:mm:ss a, MMMM Do YYYY");
+			message.timestamp = timestamp;
+
 			saveMessage(message, details.hall);
 			io.to(details.hall).emit("messageRecieve", message);
 		});

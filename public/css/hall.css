@@ -73,6 +73,13 @@ td {
 	font-weight: 700;
 	margin-left: -10px;
 }
+.time {
+	text-align: right;
+}
+.message-text {
+	width: 70vw;
+	word-wrap: break-word;
+}
 
 #bottom-spacer {
 	height: 3vh;

@@ -50,7 +50,9 @@ function displayMessage(message) {
 	div.classList.add("message");
 	div.innerHTML = `
         <div class="sender">${message.username}</div>
-		<p>${message.message}</p>
+		<p class="message-text">${message.message}</p>
+		<br>
+		<p class="time">${message.timestamp}</p>
     `;
 	messageContainer.appendChild(div);
 	// scrolling to bottom
