@@ -37,6 +37,13 @@ socket.on("messageRecieve", (message) => {
 	displayMessage(message);
 });
 
+// recieving old messages
+socket.on("oldMessages", (messages) => {
+	for (var i = 0; i < messages.length; i++) {
+		displayMessage(messages[i]);
+	}
+});
+
 // displaying message
 function displayMessage(message) {
 	const div = document.createElement("div");

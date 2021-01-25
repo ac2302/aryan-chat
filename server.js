@@ -234,7 +234,7 @@ io.on("connection", (socket) => {
 function sendMessages(socket, hallName) {
 	Hall.findOne({ name: hallName }, (err, hall) => {
 		if (!err && hall !== null) {
-			socket.send("oldMessages", hall.messages);
+			socket.emit("oldMessages", hall.messages);
 		}
 	});
 }
@@ -244,7 +244,6 @@ function saveMessage(message, hallName) {
 		if (!err && hall !== null) {
 			hall.messages.push(message);
 			hall.save();
-			console.log(hall);
 		}
 	});
 }
