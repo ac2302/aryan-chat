@@ -53,4 +53,6 @@ function displayMessage(message) {
 		<p>${message.message}</p>
     `;
 	messageContainer.appendChild(div);
+	// scrolling to bottom
+	messageContainer.scrollTop = messageContainer.scrollHeight;
 }
