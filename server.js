@@ -134,6 +134,43 @@ app
 		}
 	});
 
+// joining hall
+app
+	.route("/join")
+	.get((req, res) => {
+		if (req.isAuthenticated()) {
+			res.render("join");
+		} else {
+			res.redirect("/login");
+		}
+	})
+	.post((req, res) => {
+		if (req.isAuthenticated()) {
+			Hall.findById(req.body.code, (err, hall) => {
+				if (!err && hall !== null && !req.user.halls.includes(hall.name)) {
+					// get user to add to hall
+					User.findById(req.user.id, (err, user) => {
+						if (!err && user !== null) {
+							// add hall to user
+							user.halls.push(hall.name);
+							user.save();
+							// add user to hall
+							hall.members.push(user.username);
+							hall.save();
+							res.redirect(`/hall/${hall.name}`);
+						} else {
+							res.redirect("/home");
+						}
+					});
+				} else {
+					res.redirect("/home");
+				}
+			});
+		} else {
+			res.redirect("/login");
+		}
+	});
+
 // register new user
 app.post("/register", (req, res) => {
 	User.register(

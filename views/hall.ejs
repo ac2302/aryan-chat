@@ -18,6 +18,7 @@
 		<!-- info from server to client js -->
 		<div id="info">
 			<span id="username"><%= user.username %></span>
+			<span id="hall-code"><%= hall.id %></span>
 		</div>
 
 		<nav>
@@ -30,7 +31,7 @@
 		<table>
 			<tr>
 				<td id="pannel">
-					<button id="copy-invite-link">copy invite link</button>
+					<button id="copy-invite-code">copy invite code</button>
 					<div id="members-list-container">
 						<ul id="members-list">
 							<% for( let i = 0; i < hall.members.length; i++ ) { %>
@@ -52,7 +53,7 @@
 		<div id="bottom-spacer"></div>
 		<div id="bottom">
 			<form id="message-form">
-				<input type="text" id="msg" autofocus="on" autocomplete="off"/>
+				<input type="text" id="msg" autofocus="on" autocomplete="off" />
 				<input type="submit" value="send" />
 			</form>
 		</div>
