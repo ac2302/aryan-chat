@@ -1,4 +1,3 @@
-<br />
 <p align="center">
   <h1 align="center">aryan chat</h1>
 
