@@ -63,6 +63,7 @@ passport.deserializeUser(User.deserializeUser());
 const hallSchema = new mongoose.Schema({
 	name: String,
 	members: [],
+	messages: [],
 });
 const Hall = mongoose.model("Hall", hallSchema);
 
@@ -220,8 +221,30 @@ io.on("connection", (socket) => {
 	socket.on("greeting", (details) => {
 		socket.join(details.hall);
 		// socket has joined hall
+		// send recent messages to socket
+		sendMessages(socket, details.hall);
+
 		socket.on("messageSend", (message) => {
+			saveMessage(message, details.hall);
 			io.to(details.hall).emit("messageRecieve", message);
 		});
 	});
 });
+
+function sendMessages(socket, hallName) {
+	Hall.findOne({ name: hallName }, (err, hall) => {
+		if (!err && hall !== null) {
+			socket.send("oldMessages", hall.messages);
+		}
+	});
+}
+
+function saveMessage(message, hallName) {
+	Hall.findOne({ name: hallName }, (err, hall) => {
+		if (!err && hall !== null) {
+			hall.messages.push(message);
+			hall.save();
+			console.log(hall);
+		}
+	});
+}
